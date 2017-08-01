@@ -18,7 +18,7 @@ Public Class Main
             apiRequest.Dispose()
             Return apiRequest.DownloadString(apiURL)
         Catch ex As Exception
-            ErrorMsg.ShowError(ex.Message.ToString)
+            'ErrorMsg.ShowError(ex.Message.ToString)
         End Try
     End Function
 
@@ -36,7 +36,7 @@ Public Class Main
             nWbx.Dispose()
             Return valid
         Catch ex As Exception
-            ErrorMsg.ShowError(ex.Message.ToString)
+            'ErrorMsg.ShowError(ex.Message.ToString)
         End Try
     End Function
 
@@ -54,7 +54,7 @@ Public Class Main
                 imgGroup.Image = GetUsergroup("https://hackforums.net/" & usergroup)
             End If
         Catch ex As Exception
-            ErrorMsg.ShowError(ex.Message.ToString)
+            'ErrorMsg.ShowError(ex.Message.ToString)
         End Try
     End Sub
 
@@ -82,7 +82,7 @@ Public Class Main
             Dim pmString As String = nWbx.DownloadString("https://hackforums.net/api/v1/pmbox")
             Return Convert.ToInt32(JObject.Parse(pmString).SelectToken("result").SelectToken("pageInfo").SelectToken("total"))
         Catch ex As Exception
-            ErrorMsg.ShowError(ex.Message.ToString)
+            'ErrorMsg.ShowError(ex.Message.ToString)
         End Try
     End Function
 

@@ -119,8 +119,7 @@ Public Class Main
         currentPMCount = GetPMCount()
         txtPmCount.Text = "PM Count : " & currentPMCount.ToString
         delay(3)
-        Timer1.Start()
-        Timer2.Start()
+        Timer1.Start() 
     End Sub
 
     Private Sub txtRep_TextChanged(sender As Object, e As EventArgs) Handles txtRep.TextChanged
@@ -135,6 +134,17 @@ Public Class Main
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         UpdateUserInfo(MakeRequest(apiKey, "https://hackforums.net/api/v1/user"))
+        delay(10)
+        Dim curPM As Integer = GetPMCount()
+        If Not curPM = currentPMCount Then
+            If curPM > currentPMCount Then
+                If My.Settings.PM Then
+                    ShowNotify("New PM!", "You have recieved a new PM!")
+                End If
+            End If
+            currentPMCount = curPM
+        End If
+        txtPmCount.Text = "PM Count : " & currentPMCount.ToString
     End Sub
 
     Public Sub ShowNotify(title As String, msg As String)
@@ -149,20 +159,7 @@ Public Class Main
 
     Private Sub ToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem2.Click
         End
-    End Sub
-
-    Private Sub Timer2_Tick(sender As Object, e As EventArgs) Handles Timer2.Tick
-        Dim curPM As Integer = GetPMCount()
-        If Not curPM = currentPMCount Then
-            If curPM > currentPMCount Then
-                If My.Settings.PM Then
-                    ShowNotify("New PM!", "You have recieved a new PM!")
-                End If
-            End If
-            currentPMCount = curPM
-        End If
-        txtPmCount.Text = "PM Count : " & currentPMCount.ToString
-    End Sub
+    End Sub 
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         If CheckBox1.Checked Then
@@ -212,6 +209,10 @@ Public Class Main
                 CheckBox5.Checked = True
             End If
         End If
+    End Sub
+
+    Private Sub NotifyIcon1_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles NotifyIcon1.MouseDoubleClick
+        Me.Show()
     End Sub
 End Class
 

@@ -30,7 +30,6 @@ Partial Class Main
         Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Timer2 = New System.Windows.Forms.Timer(Me.components)
         Me.SlickBlueTabControl1 = New HF_Desktop_Tool.SlickBlueTabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.txtPmCount = New System.Windows.Forms.Label()
@@ -91,11 +90,6 @@ Partial Class Main
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
         Me.ToolStripMenuItem2.Size = New System.Drawing.Size(103, 22)
         Me.ToolStripMenuItem2.Text = "Exit"
-        '
-        'Timer2
-        '
-        Me.Timer2.Enabled = True
-        Me.Timer2.Interval = 32000
         '
         'SlickBlueTabControl1
         '
@@ -338,6 +332,5 @@ Partial Class Main
     Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents ToolStripMenuItem2 As System.Windows.Forms.ToolStripMenuItem
-    Friend WithEvents Timer2 As System.Windows.Forms.Timer
     Friend WithEvents txtPmCount As System.Windows.Forms.Label
 End Class

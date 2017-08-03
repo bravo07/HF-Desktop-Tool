@@ -1,12 +1,14 @@
 # HF Desktop Tool
-### Current version : v1.1
+### Current version : v1.2
 
 ## Features
 * Shows your avatar, and usergroup.
 * Changes your username color to your group (Even for you Omni, even though you won't use this <3)
-* Shows Reputation, Post count, and PM count.
+* Shows Reputation, Post count, and Account age(in days).
 * Notifies you when you get positive rep or when you recieve a new pm.
 * Save APIKey for easy login. (Locally ofc.)
+* Will display a message if you have unread PMs.
+* Notifications will tell you have many unread PMs you have.
 
 ## Screenshots : 
 ##### Login form :
@@ -25,8 +27,8 @@
 
 
 ## Known Issues & WIPs.
-* To prevent calling the API too many times, too fast you'll get your PM count the first time the application refreshes your info (every 45 seconds).
-* The application will break if you exceed the 240 calls/ hour limit. The application makes about 160 calls an hour.
+~~* To prevent calling the API too many times, too fast you'll get your PM count the first time the application refreshes your info (every 45 seconds).~~
+* The application will break if you exceed the 240 calls/ our limit. The application makes about 180 calls an hour.
 
 ## Changelog:
 #### Version 1.0
@@ -39,3 +41,10 @@
 * Major code improvement
 * Heavily commented
 * The aliens have landed.
+
+#### Version 1.2
+* Now uses "?include=header" so only 1 call is necessary to update all user information.
+* 403 Errors from the API are much less likely due to the application only calling it once every 20 seconds.
+* Calls the API 20 times a second meaning around 180 calls are made every hour.
+* Added a linked label to display when there are unread PMs.
+* PM Notifications now tell you how many unread PMs you have.

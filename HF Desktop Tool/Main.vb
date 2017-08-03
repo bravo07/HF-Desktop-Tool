@@ -34,7 +34,7 @@ Public Class Main
     Public Sub FirstLoad(json As JObject)
         Try
             Dim username As String = json.SelectToken("result").SelectToken("username")
-            Dim usergroupID As String = json.SelectToken("result").SelectToken("displaygroup").ToString
+            Dim usergroupID As String = json.SelectToken("result").SelectToken("usergroup").ToString
             Dim userAge As String = json.SelectToken("result").SelectToken("timeonline").ToString
             Dim userAvatar As String = json.SelectToken("result").SelectToken("avatar").ToString
             Dim userPostCount As String = json.SelectToken("result").SelectToken("postnum").ToString

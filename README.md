@@ -1,11 +1,11 @@
 # HF Desktop Tool
-### Current version : v1.2
+### Current version : v1.2.2
 
 ## Features
 * Shows your avatar, and usergroup.
 * Changes your username color to your group (Even for you Omni, even though you won't use this <3)
 * Shows Reputation, Post count, and Account age(in days).
-* Notifies you when you get positive rep or when you recieve a new pm.
+* Notifies you when you get positive rep or when you receive a new pm.
 * Save APIKey for easy login. (Locally ofc.)
 * Will display a message if you have unread PMs.
 * Notifications will tell you have many unread PMs you have.
@@ -40,7 +40,7 @@
 * Released.
 
 #### Version 1.1
-* Major UI Improvent, incorperating the HF background.
+* Major UI Improvement, incorporating the HF background.
 * Colored Username depending on user group (Theres one for Ub3r, L33t, Staff, and Mr. Omni <3)
 * Removed some settings
 * Major code improvement
@@ -55,3 +55,7 @@
 * PM Notifications now tell you how many unread PMs you have.
 * Removed PM Count
 * PM Count is replaced by account age (in days).
+
+#### Version 1.2.2
+* Fixed Issues : The userbar would always give the user the l33t userbar.
+* HF-Uploaded Avatars won't throw an illegal characters error.

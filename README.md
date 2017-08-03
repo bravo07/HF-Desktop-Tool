@@ -48,3 +48,5 @@
 * Calls the API 20 times a second meaning around 180 calls are made every hour.
 * Added a linked label to display when there are unread PMs.
 * PM Notifications now tell you how many unread PMs you have.
+* Removed PM Count
+* PM Count is replaced by account age (in days).

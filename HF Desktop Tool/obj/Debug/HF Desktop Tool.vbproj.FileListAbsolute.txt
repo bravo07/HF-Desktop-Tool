@@ -12,5 +12,4 @@ c:\users\sockm\documents\visual studio 2013\Projects\HF Desktop Tool\HF Desktop 
 C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool\HF Desktop Tool\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool\HF Desktop Tool\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool\HF Desktop Tool\obj\Debug\HF Desktop Tool.vbprojResolveAssemblyReference.cache
-C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool\HF Desktop Tool\obj\Debug\HF_Desktop_Tool.ErrorMsg.resources
 C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool\HF Desktop Tool\obj\Debug\HF_Desktop_Tool.Msg.resources

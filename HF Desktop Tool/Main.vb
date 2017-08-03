@@ -3,289 +3,229 @@ Imports System.Net
 Imports Newtonsoft.Json.Linq
 
 Public Class Main
-    Public apiKey As String
+    Dim apiKey As String
+    Dim nWbx As New WebClient
 
-    Dim firstResponse As String
-    Dim currentPMCount As Integer
-    Dim curRepCount As Integer
+    Dim nMsg As New Msg
 
+    '--- We need to keep track of everything so we'll know if a number has gone up or down ---'
+    Dim currentPmCount As Integer = -1
+    Dim currentReputation As Integer
 
-    Public Function MakeRequest(key As String, apiURL As String) As String
+    '--- We're not sending 2 requests to check if the key works and the same request again ---'
+    '--- to prevent the api from throwing us a 403 error. ---'
+    Public firstResponse As JObject
+
+    '--- We're going to put try/catch/end try on everything till all the kinks get worked out. ---'
+
+    Public Function CheckKey(key As String) As Boolean 
+        '--- Give a global variable the apiKey incase it needs to be called again. ---'
+        apiKey = key
+        Dim result As Boolean = False
         Try
-            Dim apiRequest As New WebClient
-            apiRequest.Credentials = New NetworkCredential(apiKey, "")
-            apiRequest.Headers.Add("user-agent", "Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201")
-            apiRequest.Dispose()
-            Return apiRequest.DownloadString(apiURL)
-        Catch ex As Exception
-            'ErrorMsg.ShowError(ex.Message.ToString)
-        End Try
-    End Function
-
-    Public Function CheckKey() As Boolean
-        Try
-            Dim valid As Boolean = False
-            Dim nWbx As WebClient = New WebClient
-            nWbx.Credentials = New NetworkCredential(apiKey, "")
-            nWbx.Headers.Add("user-agent", "Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201")
-            Dim response As String = nWbx.DownloadString("https://hackforums.net/api/v1/user")
-            firstResponse = response
-            If response.Contains("{""success"":true,") Then
-                valid = True
-            End If
-            nWbx.Dispose()
-            Return valid
-        Catch ex As Exception
-            'ErrorMsg.ShowError(ex.Message.ToString)
-        End Try
-    End Function
-
-    Public Sub UpdateUserInfo(response As String)
-        Try
-            Dim json As JObject = JObject.Parse(response)
-            txtUsername.Text = GetJSON(json, "result", "username")
-            Dim avatarURL As String = GetJSON(json, "result", "avatar")
-            imgAvatar.Image = New System.Drawing.Bitmap(New IO.MemoryStream(New System.Net.WebClient().DownloadData(avatarURL)))
-            txtPostCount.Text = "Post Count : " & GetJSON(json, "result", "postnum")
-            curRepCount = Convert.ToInt32(GetJSON(json, "result", "reputation"))
-            CheckRep(curRepCount)
-            If imgGroup.Image Is Nothing Then
-                Dim usergroup As String = GetJSON(JObject.Parse(MakeRequest(apiKey, "https://hackforums.net/api/v1/group/" & GetJSON(json, "result", "displaygroup"))), "result", "userbar")
-                imgGroup.Image = GetUsergroup("https://hackforums.net/" & usergroup)
+            '--- Just test if the apiKey is valid by making a request. ---'
+            Dim json As JObject = JObject.Parse(MakeRequest("https://hackforums.net/api/v1/user", True))
+            If json.SelectToken("success") = "True" Then
+                firstResponse = json
+                Return True
             End If
         Catch ex As Exception
-            'ErrorMsg.ShowError(ex.Message.ToString)
+            nMsg.Msg(ex.Message, "Error!", True)
+        End Try
+        Return result
+    End Function
+
+    Public Sub FirstLoad(json As JObject)
+        Try
+            '--- Get Username, Usergroup, Avatar, Post count, and Reputation. ---'
+            Dim username As String = json.SelectToken("result").SelectToken("username").ToString
+            Dim usergroupID As String = json.SelectToken("result").SelectToken("displaygroup").ToString
+            If usergroupID = "28" Then
+                '--- UB3R Group ---'
+                lblUsername.ForeColor = Color.FromArgb(0, 170, 255)
+            ElseIf usergroupID = "9" Then
+                '--- L33t Group ---'
+                lblUsername.ForeColor = Color.FromArgb(153, 255, 0)
+            ElseIf usergroupID = "3" Then
+                '--- Staff Usergroup ---'
+                lblUsername.ForeColor = Color.FromArgb(153, 153, 255)
+            ElseIf usergroupID = "4" Then
+                '--- Mr.Omni, You'll never use this but still... :) ---'
+                lblUsername.ForeColor = Color.FromArgb(255, 102, 255)
+            End If
+            Me.Text = "HF Desktop Tool - " & username
+            Dim userAvatar As String = json.SelectToken("result").SelectToken("avatar").ToString
+            Dim userPostCount As String = json.SelectToken("result").SelectToken("postnum").ToString
+            Dim userReputation As String = json.SelectToken("result").SelectToken("reputation").ToString
+            '--- Set Username, Usergroup, Avatar, Post count, and Reputation. ---'
+            lblUsername.Text = username
+            lblPostCount.Text = "Post Count : " & userPostCount
+            lblRep.Text = "Reputation : " & userReputation
+            currentReputation = Convert.ToInt32(userReputation)
+            Dim imgBytes() As Byte = MakeRequest(userAvatar, False)
+            Dim imgStream As New MemoryStream(imgBytes)
+            imgAvatar.Image = New Bitmap(imgStream)
+            '--- We'll need to use the API to get the URL of the image of the user's display ---'
+            '--- group, we'll also need to make another request to download the image itself. ---'
+            GetUserGroup(usergroupID)
+            CheckProfile.Start()
+        Catch ex As Exception
+            nMsg.Msg(ex.Message, "Error!", True)
         End Try
     End Sub
 
-    Public Sub CheckRep(rep As Integer)
-        If Not rep = curRepCount Then
-            If rep > curRepCount Then
-                If My.Settings.pRep Then
-                    ShowNotify(String.Format("You've been given an {0} rep! =D", "+" & rep - curRepCount), "Positive rep!")
-                End If
-            ElseIf rep < curRepCount Then
-                If My.Settings.nRep Then
-                    ShowNotify(String.Format("You've been given an {0} rep! :(", "+" & rep - curRepCount), "Negative rep!")
-                End If
+    Public Sub GetUserGroup(groupID As String)
+        Try
+            '--- Since only our usergroup ID is given in /user we'll need to make another call to /group ---'
+            '--- with the user's group ID to retrieve the URL of the image of the user bar of the group ---'
+            Dim groupResponse As String = MakeRequest("https://hackforums.net/api/v1/group/9", True)
+            Dim groupJSON As JObject = JObject.Parse(groupResponse)
+            '--- Then we'll need to make a request to download the image from HF, notice the "str" argument is false since we're expecting an image"
+            Dim imgBytes() As Byte = MakeRequest("https://hackforums.net/" & groupJSON.SelectToken("result").SelectToken("userbar").ToString, False)
+            Dim imgStream As New MemoryStream(imgBytes)
+            imgGroup.Image = New Bitmap(imgStream)
+        Catch ex As Exception
+            nMsg.Msg(ex.Message, "Error!", True)
+        End Try
+    End Sub
+
+    Public Function MakeRequest(URL As String, str As Boolean)
+        '--- Each time nWbx (the webclient) is used it's headers are cleared so each time ---'
+        '--- we make a request we'll need to set our credentials and our user agent. ---'   
+        nWbx.Credentials = New NetworkCredential(apiKey, "")
+        nWbx.Headers.Add("user-agent", "Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201")
+        Try
+            '--- This is just so we can use this function to download string and other data (images) ---'
+            If str Then
+                Return (nWbx.DownloadString(URL))
+            Else
+                Return (nWbx.DownloadData(URL))
             End If
+        Catch ex As Exception
+            nMsg.Msg(ex.Message, "Error!", True)
+        End Try
+    End Function
+
+    Private Sub lblRep_TextChanged(sender As Object, e As EventArgs) Handles lblRep.TextChanged
+        '--- This just sets the label's color to the appropriate depending on the user's rep ---'
+        '--- Lime green for positive, red for negative, and plain white for no rep. ---'
+        Dim rep As Integer = Convert.ToInt32(lblRep.Text.Replace("Reputation : ", ""))
+        If rep > 0 Then
+            lblRep.ForeColor = Color.Lime
+        ElseIf rep < 0 Then
+            lblRep.ForeColor = Color.Red
+        ElseIf rep = 0 Then
+            lblRep.ForeColor = Color.White
         End If
-        txtRep.Text = curRepCount.ToString
     End Sub
 
-    Public Function GetPMCount() As Integer
+    Private Sub CheckProfile_Tick(sender As Object, e As EventArgs) Handles CheckProfile.Tick
         Try
-            Dim valid As Boolean = False
-            Dim nWbx As WebClient = New WebClient
-            nWbx.Credentials = New NetworkCredential(apiKey, "")
-            nWbx.Headers.Add("user-agent", "Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201")
-            Dim pmString As String = nWbx.DownloadString("https://hackforums.net/api/v1/pmbox")
-            Return Convert.ToInt32(JObject.Parse(pmString).SelectToken("result").SelectToken("pageInfo").SelectToken("total"))
-        Catch ex As Exception
-            'ErrorMsg.ShowError(ex.Message.ToString)
-        End Try
-    End Function
+            '--- This timer will fire every 10 seconds, which means it is making 2 requests ---'
+            '--- to the API every 10 seconds which amounts to about 720 API calls an hour! ---'
 
-    Public Sub delay(sec As Integer)
-        For i As Integer = 0 To sec * 10
-            System.Threading.Thread.Sleep(10)
-            Application.DoEvents()
-        Next
+            '--- We only want to get your reputation and pm count but since you can get your ---'
+            '--- post count, reputation, and username in the same call we'll update those as well ---'
+
+            Dim userInfo As JObject = JObject.Parse(MakeRequest("https://hackforums.net/api/v1/user", True))
+
+            '--- We're putting everything we want to update into it's own variable just because ---'
+            '--- I want my code to be at least some what readable lol ---'
+            Dim username As String = userInfo.SelectToken("result").SelectToken("username").ToString
+            Dim userPostCount As String = userInfo.SelectToken("result").SelectToken("postnum").ToString
+            Dim userReputation As String = userInfo.SelectToken("result").SelectToken("reputation").ToString
+
+
+            '--- Now we'll put all the values above into their labels ---'
+            lblUsername.Text = username
+            lblPostCount.Text = "Post Count : " & userPostCount
+            lblRep.Text = "Reputation : " & userReputation
+
+            '--- Now we'll check if the users's reputation has gone up ---'
+            If Convert.ToInt32(userReputation) > currentReputation Then
+                '--- We'll send a notification to the user informing them of how much their rep has gone up by. ---'
+                NotifyUser(String.Format("You've gained +{0} rep!", userReputation - currentReputation), "HF - Reputation")
+            End If
+
+            '--- Update the new  Reputation Values ---'
+            currentReputation = userReputation
+
+            CheckPMs()
+        Catch ex As Exception
+            nMsg.Msg(ex.Message, "Error!", True)
+        End Try
     End Sub
 
-    Public Function GetUsergroup(url As String) As Image
+    Dim nPM As New WebClient
+    Public Sub CheckPMs()
         Try
-            Dim tClient As WebClient = New WebClient
-            tClient.Headers.Add("user-agent", "Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201")
-            Dim tImage As Bitmap = Bitmap.FromStream(New MemoryStream(tClient.DownloadData(url)))
-            Return tImage
-        Catch ex As Exception
-            ErrorMsg.ShowError(ex.Message.ToString)
-        End Try
-    End Function
+            '--- We're going to make a new web client to check the PMs ---'
+            nPM.Credentials = New NetworkCredential(apiKey, "")
+            nPM.Headers.Add("user-agent", "Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201")
+            Dim pmInfo As JObject = JObject.Parse(nPM.DownloadString("https://hackforums.net/api/v1/pmbox"))
+            Dim pmCount As String = pmInfo.SelectToken("result").SelectToken("pageInfo").SelectToken("total").ToString
+            lblPmCount.Text = "PM Count : " & pmCount
 
-    Public Function GetJSON(json As JObject, token1 As String, token2 As String) As String
-        Return (json.SelectToken(token1).SelectToken(token2))
-    End Function
+            If Not currentPmCount = -1 Then
+                If Convert.ToInt32(pmCount) > currentPmCount Then
+                    '--- We'll send a notification to the user informing them that they've recieved a new PM ---'
+                    NotifyUser("You've got a new PM!", "HF - Private Message")
+                End If
+            End If
+
+            currentPmCount = pmCount
+        Catch ex As Exception
+            '--- Normally we would also show the error but there's been some unexpected behavior ---'
+            '--- that needs to get worked out. So if the code encouters an issue here it will just ---'
+            '--- skip it and it should run normally when the timer fires again. ---'
+            'nMsg.Msg(ex.Message, "Error!", True)
+        End Try
+    End Sub
+
+    Public Sub NotifyUser(message As String, title As String)
+        Notifications.BalloonTipTitle = title
+        Notifications.BalloonTipText = message
+        Notifications.ShowBalloonTip(5000)
+    End Sub
 
     Private Sub Main_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         e.Cancel = True
         Me.Hide()
     End Sub
 
-    Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        UpdateUserInfo(firstResponse)
-        delay(10)
-        currentPMCount = GetPMCount()
-        txtPmCount.Text = "PM Count : " & currentPMCount.ToString
-        delay(3)
-        Timer1.Start() 
-    End Sub
-
-    Private Sub txtRep_TextChanged(sender As Object, e As EventArgs) Handles txtRep.TextChanged
-        If txtRep.Text = "0" Then
-            txtRep.ForeColor = Color.White
-        ElseIf txtRep.Text.Contains("-") Then
-            txtRep.ForeColor = Color.Red
-        Else
-            txtRep.ForeColor = Color.Lime
-        End If
-    End Sub
-
-    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        UpdateUserInfo(MakeRequest(apiKey, "https://hackforums.net/api/v1/user"))
-        delay(10)
-        Dim curPM As Integer = GetPMCount()
-        If Not curPM = currentPMCount Then
-            If curPM > currentPMCount Then
-                If My.Settings.PM Then
-                    ShowNotify("New PM!", "You have recieved a new PM!")
-                End If
-            End If
-            currentPMCount = curPM
-        End If
-        txtPmCount.Text = "PM Count : " & currentPMCount.ToString
-    End Sub
-
-    Public Sub ShowNotify(title As String, msg As String)
-        NotifyIcon1.BalloonTipText = msg
-        NotifyIcon1.Text = title
-        NotifyIcon1.ShowBalloonTip(5000)
-    End Sub
-
-    Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
+    Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Me.Show()
     End Sub
 
-    Private Sub ToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem2.Click
+    Private Sub ToolStripMenuItem2_Click(sender As Object, e As EventArgs)
         End
-    End Sub 
+    End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        If CheckBox1.Checked Then
-            My.Settings.pRep = True
-        Else
-            My.Settings.pRep = False
-        End If
-        If CheckBox3.Checked Then
-            My.Settings.nRep = True
-        Else
-            My.Settings.nRep = True
-        End If
-        If CheckBox4.Checked Then
+    Private Sub VelocityButton1_Click(sender As Object, e As EventArgs) Handles btnSaveSettings.Click
+        If cbSaveAPI.Checked Then
             My.Settings.apiKey = apiKey
+            My.Settings.Save()
         Else
             My.Settings.apiKey = ""
+            My.Settings.Save()
         End If
-        If CheckBox5.Checked Then
-            My.Settings.PM = True
-        Else
-            My.Settings.PM = False
-        End If
-        My.Settings.Save()
-        Msg.ShowMsg("Settings have been sucessfully saved!", "Settings saved")
     End Sub
 
     Private Sub SlickBlueTabControl1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles SlickBlueTabControl1.SelectedIndexChanged
         If SlickBlueTabControl1.SelectedIndex = 1 Then
-            If My.Settings.pRep Then
-                CheckBox1.Checked = True
+            If My.Settings.apiKey = "" Then
+                cbSaveAPI.Checked = False
             Else
-                CheckBox1.Checked = False
-            End If
-            If My.Settings.nRep Then
-                CheckBox3.Checked = True
-            Else
-                CheckBox3.Checked = True
-            End If
-            If Not My.Settings.apiKey = "" Then
-                CheckBox4.Checked = True
-            Else
-                CheckBox4.Checked = True
-            End If
-            If My.Settings.PM Then
-                CheckBox5.Checked = True
-            Else
-                CheckBox5.Checked = True
+                cbSaveAPI.Checked = True
             End If
         End If
     End Sub
 
-    Private Sub NotifyIcon1_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles NotifyIcon1.MouseDoubleClick
+    Private Sub Notifications_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles Notifications.MouseDoubleClick
         Me.Show()
+    End Sub  
+
+    Private Sub VelocityButton1_Click_1(sender As Object, e As EventArgs) Handles VelocityButton1.Click
+        Application.Restart()
     End Sub
-End Class
-
-Public Class SlickBlueTabControl
-    Inherits TabControl
-
-    Private _mouseOverTabIndex As Integer = 0
-
-    Sub New()
-        Dock = DockStyle.Fill
-        DoubleBuffered = True
-        SetStyle(ControlStyles.AllPaintingInWmPaint Or ControlStyles.OptimizedDoubleBuffer Or ControlStyles.ResizeRedraw Or ControlStyles.UserPaint, True)
-        SizeMode = TabSizeMode.Fixed
-        ItemSize = New Size(40, 130)
-        Alignment = TabAlignment.Left
-        Font = New Font("Segoe UI Semilight", 9)
-    End Sub
-
-    Protected Overrides Sub OnPaint(e As PaintEventArgs)
-        MyBase.OnPaint(e)
-        Dim b As New Bitmap(Width, Height) : Dim g As Graphics = Graphics.FromImage(b)
-        g.Clear(FromHex("#2c3e50"))
-        For i = 0 To TabCount - 1
-            Dim tabRect As Rectangle = GetTabRect(i)
-            If i = SelectedIndex Then
-                If i = 0 Then
-                    g.FillRectangle(New SolidBrush(FromHex("#34495e")), 0, 0, tabRect.Width + 2, tabRect.Height + 2)
-                    g.FillRectangle(Brushes.DodgerBlue, 0, 0, 4, tabRect.Height + 2)
-                Else
-                    g.FillRectangle(New SolidBrush(FromHex("#34495e")), tabRect)
-                    g.FillRectangle(Brushes.DodgerBlue, tabRect.X - 2, tabRect.Y, 4, tabRect.Height)
-                End If
-            ElseIf Not _mouseOverTabIndex = -1 And i = _mouseOverTabIndex Then
-                If i = 0 Then
-                    g.FillRectangle(New SolidBrush(FromHex("#435363")), 0, 0, tabRect.Width + 3, tabRect.Height + 2)
-                Else
-                    g.FillRectangle(New SolidBrush(FromHex("#435363")), 0, tabRect.Y, tabRect.Width + 3, tabRect.Height)
-                End If
-            Else
-                g.FillRectangle(New SolidBrush(FromHex("#2c3e50")), tabRect)
-            End If
-            g.DrawString(TabPages(i).Text, Font, Brushes.White, New Rectangle(tabRect.X, tabRect.Y, tabRect.Width, tabRect.Height), New StringFormat With {.Alignment = StringAlignment.Center, .LineAlignment = StringAlignment.Center})
-        Next
-        e.Graphics.DrawImage(b.Clone, 0, 0) : g.Dispose() : b.Dispose()
-    End Sub
-
-    Protected Overrides Sub OnMouseMove(e As MouseEventArgs)
-        MyBase.OnMouseMove(e)
-        For i As Integer = 0 To TabPages.Count - 1
-            If GetTabRect(i).Contains(e.Location) Then
-                _mouseOverTabIndex = i
-                Exit For
-            Else
-                _mouseOverTabIndex = -1
-            End If
-        Next
-        Invalidate()
-    End Sub
-
-    Protected Overrides Sub OnMouseLeave(e As EventArgs)
-        MyBase.OnMouseLeave(e)
-        _mouseOverTabIndex = -1 : Invalidate()
-    End Sub
-
-#Region "Helpers"
-    Public Enum MouseState
-        Hover = 1
-        Down = 2
-        None = 3
-    End Enum
-
-    Public Function FromHex(hex As String) As Color
-        Return ColorTranslator.FromHtml(hex.Replace("#", "").Insert(0, "#"))
-    End Function
-#End Region
 End Class

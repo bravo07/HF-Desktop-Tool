@@ -1,8 +1,12 @@
-﻿Public Class Msg
+﻿Public Class Msg 
 
-    Public Sub ShowMsg(msg As String, title As String)
-        Me.Text = "HF Desktop - " & title
-        TextBox1.Text = msg
+    Public Sub Msg(message As String, title As String, msgError As Boolean)
+        lblTitle.Text = title.ToString
+        If msgError Then
+            txtMessage.Text = "An unexpected error has occurred." & vbNewLine & vbNewLine & message
+        Else
+            txtMessage.Text = message
+        End If
         Me.ShowDialog()
     End Sub
 

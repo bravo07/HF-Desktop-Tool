@@ -20,6 +20,11 @@
 
 ![Main](https://i.gyazo.com/cdeac8ff05943326cfb2fd31e38fdb6d.png)
 
+##### Main tab with unread PMs. : 
+
+
+![Main](https://i.gyazo.com/057aba6cb35ab4a6f97bf7a83ad2e993.png)
+
 ##### Settings tab : 
 
 

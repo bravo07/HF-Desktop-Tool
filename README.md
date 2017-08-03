@@ -1,11 +1,41 @@
-# HF-Desktop-Tool
-A HF Desktop tool that implements HF's new API.
+# HF Desktop Tool
+### Current version : v1.1
 
-## Screenshots
-![Login](https://i.gyazo.com/dc131433e3378512709ffc665b84dcac.png)
+## Features
+* Shows your avatar, and usergroup.
+* Changes your username color to your group (Even for you omni, even thought you won't use this <3)
+* Shows Reputation, Post count, and PM count.
+* Notifies you when you get positive rep or when you recieve a new pm.
+* Save APIKey for easy login. (Locally ofc.)
 
-![Main](https://i.gyazo.com/4120b9546025e13a3fb0d43bc5d68fe9.png)
+## Screenshots : 
+##### Login form :
 
-![Settings](https://i.gyazo.com/7ad81ea5ab12036ae023de42867437ef.png)
+![Login](https://i.gyazo.com/47e909c2214c4e970a1d589037ca5611.png)
 
-![Saved Settings](https://i.gyazo.com/3612110a304be5b62a802f4dd59f548d.png)
+##### Main tab : 
+
+
+![Main](https://i.gyazo.com/cdeac8ff05943326cfb2fd31e38fdb6d.png)
+
+##### Settings tab : 
+
+
+![Settings](https://i.gyazo.com/f621e85ce7b81f3fce2d5318a67fe4ae.png)
+
+
+## Known Issues & WIPs.
+* To prevent calling the API too many times, too fast you'll get your PM count the first time the application refreshes your info (every 45 seconds).
+* The application will break if you exceed the 240 calls/ hour limit. The application makes about 160 calls an hour.
+
+## Changelog:
+#### Version 1.0
+* Released.
+
+#### Version 1.1
+* Major UI Improvent, incorperating the HF background.
+* Colored Username depending on user group (Theres one for Ub3r, L33t, Staff, and Mr. Omni <3)
+* Removed some settings
+* Major code improvement
+* Heavily commented
+* The aliens have landed.

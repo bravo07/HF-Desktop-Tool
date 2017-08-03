@@ -57,6 +57,10 @@ Public Class Main
             lblAge.Text = Math.Floor(SecondsToDays(Convert.ToInt32(userAge))).ToString & " Days Old"
             currentReputation = Convert.ToInt32(userReputation)
 
+
+            If userAvatar.StartsWith(".") Then
+                userAvatar = "https://hackforums.net/" & userAvatar
+            End If
             Dim imgBytes() As Byte = MakeRequest(userAvatar, False)
             Dim imgStream As New MemoryStream(imgBytes)
             imgAvatar.Image = New Bitmap(imgStream)

@@ -201,10 +201,11 @@ Partial Class Main
         '
         'imgAvatar
         '
+        Me.imgAvatar.Image = Global.HF_Desktop_Tool.My.Resources.Resources.quick_hf_logo
         Me.imgAvatar.Location = New System.Drawing.Point(10, 11)
         Me.imgAvatar.Name = "imgAvatar"
         Me.imgAvatar.Size = New System.Drawing.Size(136, 150)
-        Me.imgAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage
+        Me.imgAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.imgAvatar.TabIndex = 0
         Me.imgAvatar.TabStop = False
         '

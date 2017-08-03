@@ -146,6 +146,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hficon.ico" />
+    <None Include="Resources\quick hf logo.png" />
     <None Include="Resources\mosaic_bl[1].png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />

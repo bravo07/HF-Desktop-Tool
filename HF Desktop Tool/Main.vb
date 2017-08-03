@@ -20,7 +20,7 @@ Public Class Main
         apiKey = key
         Dim result As Boolean = False
         Try
-            Dim json As JObject = JObject.Parse(MakeRequest("https://hackforums.net/api/v1/user?include=header", True))
+            Dim json As JObject = JObject.Parse(MakeRequest("https://hackforums.net/api/v1/user/?include=header", True))
             If json.SelectToken("success") = "True" Then
                 firstResponse = json
                 Return True
@@ -57,13 +57,15 @@ Public Class Main
             lblAge.Text = Math.Floor(SecondsToDays(Convert.ToInt32(userAge))).ToString & " Days Old"
             currentReputation = Convert.ToInt32(userReputation)
 
-
-            If userAvatar.StartsWith(".") Then
-                userAvatar = "https://hackforums.net/" & userAvatar
+            If Not userAvatar = "" Then
+                If userAvatar.StartsWith(".") Then
+                    userAvatar = "https://hackforums.net/" & userAvatar
+                End If
+                Dim imgBytes() As Byte = MakeRequest(userAvatar, False)
+                Dim imgStream As New MemoryStream(imgBytes)
+                imgAvatar.Image = New Bitmap(imgStream)
+                imgAvatar.SizeMode = PictureBoxSizeMode.CenterImage
             End If
-            Dim imgBytes() As Byte = MakeRequest(userAvatar, False)
-            Dim imgStream As New MemoryStream(imgBytes)
-            imgAvatar.Image = New Bitmap(imgStream)
 
             GetUserGroup(usergroupID)
 
@@ -77,9 +79,12 @@ Public Class Main
         Try
             Dim groupResponse As String = MakeRequest("https://hackforums.net/api/v1/group/" & groupID, True)
             Dim groupJSON As JObject = JObject.Parse(groupResponse)
-            Dim imgBytes() As Byte = MakeRequest("https://hackforums.net/" & groupJSON.SelectToken("result").SelectToken("userbar").ToString, False)
-            Dim imgStream As New MemoryStream(imgBytes)
-            imgGroup.Image = New Bitmap(imgStream)
+            Dim userbarURL As String = groupJSON.SelectToken("result").SelectToken("userbar").ToString
+            If Not userbarURL = "" Then
+                Dim imgBytes() As Byte = MakeRequest("https://hackforums.net/" & userbarURL, False)
+                Dim imgStream As New MemoryStream(imgBytes)
+                imgGroup.Image = New Bitmap(imgStream)
+            End If
         Catch ex As Exception
             nMsg.Msg(ex.Message, "Error!", True)
         End Try

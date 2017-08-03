@@ -121,4 +121,7 @@
   <data name="mosaic_bl[1]" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mosaic_bl[1].png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="quick hf logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\quick hf logo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

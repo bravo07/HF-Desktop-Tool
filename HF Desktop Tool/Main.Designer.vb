@@ -261,8 +261,8 @@ Partial Class Main
         Me.RichTextBox1.Name = "RichTextBox1"
         Me.RichTextBox1.Size = New System.Drawing.Size(311, 86)
         Me.RichTextBox1.TabIndex = 2
-        Me.RichTextBox1.Text = "HF Desktop Tool - v1.2" & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(10) & "https://hackforums.net/showthread.php?tid=5683517" & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(10) & "There" & _
-    "s only 1 setting lol :3"
+        Me.RichTextBox1.Text = "HF Desktop Tool - v1.2.2" & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(10) & "https://hackforums.net/showthread.php?tid=5683517" & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(10) & "The" & _
+    "res only 1 setting lol :3"
         '
         'cbSaveAPI
         '

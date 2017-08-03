@@ -75,7 +75,7 @@ Public Class Main
 
     Public Sub GetUserGroup(groupID As String)
         Try
-            Dim groupResponse As String = MakeRequest("https://hackforums.net/api/v1/group/9", True)
+            Dim groupResponse As String = MakeRequest("https://hackforums.net/api/v1/group/" & groupID, True)
             Dim groupJSON As JObject = JObject.Parse(groupResponse)
             Dim imgBytes() As Byte = MakeRequest("https://hackforums.net/" & groupJSON.SelectToken("result").SelectToken("userbar").ToString, False)
             Dim imgStream As New MemoryStream(imgBytes)

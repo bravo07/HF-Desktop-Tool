@@ -8,6 +8,8 @@ Public Class Main
 
     Dim nMsg As New Msg
 
+    Dim userExit As Boolean = False
+
     Dim currentReputation As Integer
     Dim currentUnreadPMs As Integer = 0
     Public firstResponse As JObject
@@ -158,8 +160,12 @@ Public Class Main
     End Sub
 
     Private Sub Main_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-        e.Cancel = True
-        Me.Hide()
+        If userExit Then
+            e.Cancel = False
+        Else
+            e.Cancel = True
+            Me.Hide()
+        End If 
     End Sub
 
     Private Sub VelocityButton1_Click(sender As Object, e As EventArgs) Handles btnSaveSettings.Click
@@ -187,8 +193,7 @@ Public Class Main
     End Sub
 
     Private Sub VelocityButton1_Click_1(sender As Object, e As EventArgs) Handles VelocityButton1.Click
-        Me.Show()
-        Environment.Exit(0)
+        Application.Restart()
     End Sub
 
     Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
@@ -196,8 +201,8 @@ Public Class Main
     End Sub
 
     Private Sub ToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem2.Click
-        Me.Show()
-        Environment.Exit(0)
+        userExit = True
+        Me.Close()
     End Sub
 
     Private Sub Label1_Click(sender As Object, e As EventArgs) Handles lblPmAlert.Click

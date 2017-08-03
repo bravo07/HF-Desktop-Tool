@@ -228,4 +228,8 @@ Public Class Main
     Private Sub VelocityButton1_Click_1(sender As Object, e As EventArgs) Handles VelocityButton1.Click
         Application.Restart()
     End Sub
+
+    Private Sub ToolStripMenuItem1_Click_1(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
+        Me.Show()
+    End Sub
 End Class

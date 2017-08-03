@@ -41,10 +41,10 @@ Partial Class Main
         Me.imgAvatar = New System.Windows.Forms.PictureBox()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.VelocityButton1 = New HF_Desktop_Tool.VelocityButton()
         Me.btnSaveSettings = New HF_Desktop_Tool.VelocityButton()
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
         Me.cbSaveAPI = New System.Windows.Forms.CheckBox()
-        Me.VelocityButton1 = New HF_Desktop_Tool.VelocityButton()
         Me.IconMenu.SuspendLayout()
         Me.SlickBlueTabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
@@ -59,23 +59,23 @@ Partial Class Main
         '
         Me.IconMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.ToolStripSeparator1, Me.ToolStripMenuItem2})
         Me.IconMenu.Name = "IconMenu"
-        Me.IconMenu.Size = New System.Drawing.Size(104, 54)
+        Me.IconMenu.Size = New System.Drawing.Size(153, 76)
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(103, 22)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuItem1.Text = "Show"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(100, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(149, 6)
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(103, 22)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(152, 22)
         Me.ToolStripMenuItem2.Text = "Exit"
         '
         'Notifications
@@ -216,6 +216,17 @@ Partial Class Main
         Me.Panel2.Size = New System.Drawing.Size(332, 172)
         Me.Panel2.TabIndex = 1
         '
+        'VelocityButton1
+        '
+        Me.VelocityButton1.Font = New System.Drawing.Font("Segoe UI Semilight", 9.0!)
+        Me.VelocityButton1.ForeColor = System.Drawing.Color.White
+        Me.VelocityButton1.Location = New System.Drawing.Point(168, 138)
+        Me.VelocityButton1.Name = "VelocityButton1"
+        Me.VelocityButton1.Size = New System.Drawing.Size(80, 24)
+        Me.VelocityButton1.TabIndex = 4
+        Me.VelocityButton1.Text = "Restart App"
+        Me.VelocityButton1.TextAlign = HF_Desktop_Tool.Helpers.TxtAlign.Center
+        '
         'btnSaveSettings
         '
         Me.btnSaveSettings.Font = New System.Drawing.Font("Segoe UI Semilight", 9.0!)
@@ -248,17 +259,6 @@ Partial Class Main
         Me.cbSaveAPI.TabIndex = 1
         Me.cbSaveAPI.Text = "Save API Key."
         Me.cbSaveAPI.UseVisualStyleBackColor = True
-        '
-        'VelocityButton1
-        '
-        Me.VelocityButton1.Font = New System.Drawing.Font("Segoe UI Semilight", 9.0!)
-        Me.VelocityButton1.ForeColor = System.Drawing.Color.White
-        Me.VelocityButton1.Location = New System.Drawing.Point(168, 138)
-        Me.VelocityButton1.Name = "VelocityButton1"
-        Me.VelocityButton1.Size = New System.Drawing.Size(80, 24)
-        Me.VelocityButton1.TabIndex = 4
-        Me.VelocityButton1.Text = "Restart App"
-        Me.VelocityButton1.TextAlign = HF_Desktop_Tool.Helpers.TxtAlign.Center
         '
         'Main
         '

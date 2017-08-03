@@ -3,7 +3,7 @@
 
 ## Features
 * Shows your avatar, and usergroup.
-* Changes your username color to your group (Even for you omni, even thought you won't use this <3)
+* Changes your username color to your group (Even for you Omni, even though you won't use this <3)
 * Shows Reputation, Post count, and PM count.
 * Notifies you when you get positive rep or when you recieve a new pm.
 * Save APIKey for easy login. (Locally ofc.)

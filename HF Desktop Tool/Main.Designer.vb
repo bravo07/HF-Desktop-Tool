@@ -30,12 +30,13 @@ Partial Class Main
         Me.ToolStripMenuItem2 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Notifications = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.CheckProfile = New System.Windows.Forms.Timer(Me.components)
+        Me.lblPmAlert = New System.Windows.Forms.Label()
         Me.SlickBlueTabControl1 = New HF_Desktop_Tool.SlickBlueTabControl()
         Me.TabPage1 = New System.Windows.Forms.TabPage()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.lblAge = New System.Windows.Forms.Label()
         Me.lblRep = New System.Windows.Forms.Label()
         Me.lblPostCount = New System.Windows.Forms.Label()
-        Me.lblPmCount = New System.Windows.Forms.Label()
         Me.imgGroup = New System.Windows.Forms.PictureBox()
         Me.lblUsername = New System.Windows.Forms.Label()
         Me.imgAvatar = New System.Windows.Forms.PictureBox()
@@ -59,23 +60,23 @@ Partial Class Main
         '
         Me.IconMenu.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripMenuItem1, Me.ToolStripSeparator1, Me.ToolStripMenuItem2})
         Me.IconMenu.Name = "IconMenu"
-        Me.IconMenu.Size = New System.Drawing.Size(153, 76)
+        Me.IconMenu.Size = New System.Drawing.Size(104, 54)
         '
         'ToolStripMenuItem1
         '
         Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
-        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(103, 22)
         Me.ToolStripMenuItem1.Text = "Show"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(149, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(100, 6)
         '
         'ToolStripMenuItem2
         '
         Me.ToolStripMenuItem2.Name = "ToolStripMenuItem2"
-        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(152, 22)
+        Me.ToolStripMenuItem2.Size = New System.Drawing.Size(103, 22)
         Me.ToolStripMenuItem2.Text = "Exit"
         '
         'Notifications
@@ -87,7 +88,22 @@ Partial Class Main
         '
         'CheckProfile
         '
-        Me.CheckProfile.Interval = 30000
+        Me.CheckProfile.Interval = 20000
+        '
+        'lblPmAlert
+        '
+        Me.lblPmAlert.AutoSize = True
+        Me.lblPmAlert.BackColor = System.Drawing.Color.FromArgb(CType(CType(44, Byte), Integer), CType(CType(62, Byte), Integer), CType(CType(80, Byte), Integer))
+        Me.lblPmAlert.Cursor = System.Windows.Forms.Cursors.Hand
+        Me.lblPmAlert.Font = New System.Drawing.Font("Consolas", 8.25!)
+        Me.lblPmAlert.ForeColor = System.Drawing.Color.FromArgb(CType(CType(255, Byte), Integer), CType(CType(128, Byte), Integer), CType(CType(128, Byte), Integer))
+        Me.lblPmAlert.Location = New System.Drawing.Point(30, 173)
+        Me.lblPmAlert.Name = "lblPmAlert"
+        Me.lblPmAlert.Size = New System.Drawing.Size(73, 26)
+        Me.lblPmAlert.TabIndex = 2
+        Me.lblPmAlert.Text = "You have" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "unread PMs!"
+        Me.lblPmAlert.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblPmAlert.Visible = False
         '
         'SlickBlueTabControl1
         '
@@ -119,9 +135,9 @@ Partial Class Main
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.lblAge)
         Me.Panel1.Controls.Add(Me.lblRep)
         Me.Panel1.Controls.Add(Me.lblPostCount)
-        Me.Panel1.Controls.Add(Me.lblPmCount)
         Me.Panel1.Controls.Add(Me.imgGroup)
         Me.Panel1.Controls.Add(Me.lblUsername)
         Me.Panel1.Controls.Add(Me.imgAvatar)
@@ -130,6 +146,17 @@ Partial Class Main
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(332, 172)
         Me.Panel1.TabIndex = 1
+        '
+        'lblAge
+        '
+        Me.lblAge.Font = New System.Drawing.Font("Consolas", 9.0!)
+        Me.lblAge.ForeColor = System.Drawing.Color.White
+        Me.lblAge.Location = New System.Drawing.Point(168, 88)
+        Me.lblAge.Name = "lblAge"
+        Me.lblAge.Size = New System.Drawing.Size(136, 23)
+        Me.lblAge.TabIndex = 7
+        Me.lblAge.Text = "0 Days Old"
+        Me.lblAge.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'lblRep
         '
@@ -152,17 +179,6 @@ Partial Class Main
         Me.lblPostCount.TabIndex = 5
         Me.lblPostCount.Text = "Post Count : 0"
         Me.lblPostCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'lblPmCount
-        '
-        Me.lblPmCount.Font = New System.Drawing.Font("Consolas", 9.0!)
-        Me.lblPmCount.ForeColor = System.Drawing.Color.White
-        Me.lblPmCount.Location = New System.Drawing.Point(168, 90)
-        Me.lblPmCount.Name = "lblPmCount"
-        Me.lblPmCount.Size = New System.Drawing.Size(136, 23)
-        Me.lblPmCount.TabIndex = 4
-        Me.lblPmCount.Text = "PM Count : 0"
-        Me.lblPmCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'imgGroup
         '
@@ -245,7 +261,7 @@ Partial Class Main
         Me.RichTextBox1.Name = "RichTextBox1"
         Me.RichTextBox1.Size = New System.Drawing.Size(311, 86)
         Me.RichTextBox1.TabIndex = 2
-        Me.RichTextBox1.Text = "HF Desktop Tool - v1.1" & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(10) & "https://hackforums.net/showthread.php?tid=5683517" & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(10) & "There" & _
+        Me.RichTextBox1.Text = "HF Desktop Tool - v1.2" & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(10) & "https://hackforums.net/showthread.php?tid=5683517" & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(10) & "There" & _
     "s only 1 setting lol :3"
         '
         'cbSaveAPI
@@ -265,6 +281,7 @@ Partial Class Main
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(502, 212)
+        Me.Controls.Add(Me.lblPmAlert)
         Me.Controls.Add(Me.SlickBlueTabControl1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "Main"
@@ -279,6 +296,7 @@ Partial Class Main
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
@@ -288,7 +306,6 @@ Partial Class Main
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
     Friend WithEvents lblRep As System.Windows.Forms.Label
     Friend WithEvents lblPostCount As System.Windows.Forms.Label
-    Friend WithEvents lblPmCount As System.Windows.Forms.Label
     Friend WithEvents imgGroup As System.Windows.Forms.PictureBox
     Friend WithEvents lblUsername As System.Windows.Forms.Label
     Friend WithEvents imgAvatar As System.Windows.Forms.PictureBox
@@ -303,4 +320,6 @@ Partial Class Main
     Friend WithEvents Notifications As System.Windows.Forms.NotifyIcon
     Friend WithEvents CheckProfile As System.Windows.Forms.Timer
     Friend WithEvents VelocityButton1 As HF_Desktop_Tool.VelocityButton
+    Friend WithEvents lblAge As System.Windows.Forms.Label
+    Friend WithEvents lblPmAlert As System.Windows.Forms.Label
 End Class

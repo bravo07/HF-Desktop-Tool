@@ -191,15 +191,7 @@ Public Class Main
     Private Sub Main_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         e.Cancel = True
         Me.Hide()
-    End Sub
-
-    Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs)
-        Me.Show()
-    End Sub
-
-    Private Sub ToolStripMenuItem2_Click(sender As Object, e As EventArgs)
-        End
-    End Sub
+    End Sub 
 
     Private Sub VelocityButton1_Click(sender As Object, e As EventArgs) Handles btnSaveSettings.Click
         If cbSaveAPI.Checked Then
@@ -229,7 +221,11 @@ Public Class Main
         Application.Restart()
     End Sub
 
-    Private Sub ToolStripMenuItem1_Click_1(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
+    Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
         Me.Show()
+    End Sub
+
+    Private Sub ToolStripMenuItem2_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem2.Click
+        Application.Exit()
     End Sub
 End Class

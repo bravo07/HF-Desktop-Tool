@@ -63,19 +63,39 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property mosaic_bl_1_() As System.Drawing.Bitmap
+        Friend ReadOnly Property hf_bg() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("mosaic_bl[1]", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("hf_bg", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property hf_pm() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("hf_pm", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        '''</summary>
+        Friend ReadOnly Property hficon() As System.Drawing.Icon
+            Get
+                Dim obj As Object = ResourceManager.GetObject("hficon", resourceCulture)
+                Return CType(obj,System.Drawing.Icon)
             End Get
         End Property
         
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property quick_hf_logo() As System.Drawing.Bitmap
+        Friend ReadOnly Property hflogo() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("quick hf logo", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("hflogo", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property

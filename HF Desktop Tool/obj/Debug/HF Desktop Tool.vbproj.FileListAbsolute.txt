@@ -13,3 +13,17 @@ C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool\HF Desktop 
 C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool\HF Desktop Tool\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool\HF Desktop Tool\obj\Debug\HF Desktop Tool.vbprojResolveAssemblyReference.cache
 C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool\HF Desktop Tool\obj\Debug\HF_Desktop_Tool.Msg.resources
+C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool 2\HF Desktop Tool\bin\Debug\HF Desktop Tool.exe.config
+C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool 2\HF Desktop Tool\bin\Debug\HF Desktop Tool.exe
+C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool 2\HF Desktop Tool\bin\Debug\HF Desktop Tool.pdb
+C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool 2\HF Desktop Tool\bin\Debug\HF Desktop Tool.xml
+C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool 2\HF Desktop Tool\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool 2\HF Desktop Tool\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool 2\HF Desktop Tool\obj\Debug\HF_Desktop_Tool.Login.resources
+C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool 2\HF Desktop Tool\obj\Debug\HF_Desktop_Tool.Main.resources
+C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool 2\HF Desktop Tool\obj\Debug\HF_Desktop_Tool.Msg.resources
+C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool 2\HF Desktop Tool\obj\Debug\HF_Desktop_Tool.Resources.resources
+C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool 2\HF Desktop Tool\obj\Debug\HF Desktop Tool.vbproj.GenerateResource.Cache
+C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool 2\HF Desktop Tool\obj\Debug\HF Desktop Tool.exe
+C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool 2\HF Desktop Tool\obj\Debug\HF Desktop Tool.xml
+C:\Users\Sockm\Documents\Visual Studio 2013\Projects\HF Desktop Tool 2\HF Desktop Tool\obj\Debug\HF Desktop Tool.pdb

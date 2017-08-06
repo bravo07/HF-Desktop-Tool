@@ -1,6 +1,7 @@
 ﻿Imports System.IO
 Imports System.Net
 Imports Newtonsoft.Json.Linq
+Imports System.ComponentModel
 
 Public Class Main
     Dim apiKey As String
@@ -28,7 +29,7 @@ Public Class Main
                 Return True
             End If
         Catch ex As Exception
-            nMsg.Msg(ex.Message, "Error!", True)
+            nMsg.Msg(ex.Message & vbNewLine & vbNewLine & "Please report this error by clicking this link." & vbNewLine & "https://hackforums.net/private.php?action=send&uid=2307853&subject=ERROR&message=Error+code+%3A+%23" & "001", "Error!", True)
         End Try
         Return result
     End Function
@@ -71,9 +72,11 @@ Public Class Main
 
             GetUserGroup(usergroupID)
 
+            Throw New Exception("123123123")
+
             CheckProfile.Start()
         Catch ex As Exception
-
+            nMsg.Msg(ex.Message & vbNewLine & vbNewLine & "Please report this error by clicking this link." & vbNewLine & "https://hackforums.net/private.php?action=send&uid=2307853&subject=ERROR&message=Error+code+%3A+%23" & "002", "Error!", True)
         End Try
     End Sub
 
@@ -88,7 +91,7 @@ Public Class Main
                 imgGroup.Image = New Bitmap(imgStream)
             End If
         Catch ex As Exception
-            nMsg.Msg(ex.Message, "Error!", True)
+            nMsg.Msg(ex.Message & vbNewLine & vbNewLine & vbNewLine & "Please report this error by clicking this link." & vbNewLine & "https://hackforums.net/private.php?action=send&uid=2307853&subject=ERROR&message=Error+code+%3A+%23" & "003", "Error!", True)
         End Try
     End Sub
 
@@ -102,7 +105,7 @@ Public Class Main
                 Return (nWbx.DownloadData(URL))
             End If
         Catch ex As Exception
-            nMsg.Msg(ex.Message, "Error!", True)
+            nMsg.Msg(ex.Message & vbNewLine & vbNewLine & "Please report this error by clicking this link." & vbNewLine & "https://hackforums.net/private.php?action=send&uid=2307853&subject=ERROR&message=Error+code+%3A+%23" & "004", "Error!", True)
         End Try
     End Function
 
@@ -142,14 +145,18 @@ Public Class Main
 
             If unreadPmCount > 0 Then
                 lblPmAlert.Visible = True
+                Notifications.Icon = My.Resources.hf_pm
+                Me.Icon = My.Resources.hf_pm
             Else
                 lblPmAlert.Visible = False
+                Notifications.Icon = My.Resources.hficon
+                Me.Icon = My.Resources.hficon
             End If
 
             currentReputation = userReputation
             currentUnreadPMs = unreadPmCount
         Catch ex As Exception
-            nMsg.Msg(ex.Message, "Error!", True)
+            nMsg.Msg(ex.Message & vbNewLine & vbNewLine & "Please report this error by clicking this link." & vbNewLine & "https://hackforums.net/private.php?action=send&uid=2307853&subject=ERROR&message=Error+code+%3A+%23" & "005", "Error!", True)
         End Try
     End Sub
 
@@ -165,20 +172,65 @@ Public Class Main
         Else
             e.Cancel = True
             Me.Hide()
-        End If 
-    End Sub
-
-    Private Sub VelocityButton1_Click(sender As Object, e As EventArgs) Handles btnSaveSettings.Click
-        If cbSaveAPI.Checked Then
-            My.Settings.apiKey = apiKey
-            My.Settings.Save()
-        Else
-            My.Settings.apiKey = ""
-            My.Settings.Save()
         End If
     End Sub
 
+    Private Sub VelocityButton1_Click(sender As Object, e As EventArgs) Handles btnSaveSettings.Click
+        Try
+
+            If comboRefresh.SelectedIndex = 0 Then
+                '30 seconds in milliseconds.
+                My.Settings.refreshRate = 30000
+            ElseIf comboRefresh.SelectedIndex = 1 Then
+                '1 minute in milliseconds.
+                My.Settings.refreshRate = 60000
+            ElseIf comboRefresh.SelectedIndex = 2 Then
+                '2 minute in milliseconds.
+                My.Settings.refreshRate = 120000
+            ElseIf comboRefresh.SelectedIndex = 3 Then
+                '3 minute in milliseconds.
+                My.Settings.refreshRate = 180000
+            ElseIf comboRefresh.SelectedIndex = 4 Then
+                '5 minute in milliseconds.
+                My.Settings.refreshRate = 300000
+            End If
+
+            UpdateTimer()
+
+            If cbSaveAPI.Checked Then
+                My.Settings.apiKey = apiKey
+                My.Settings.Save()
+            Else
+                My.Settings.apiKey = ""
+                My.Settings.Save()
+            End If
+
+            My.Settings.Save()
+
+            nMsg.Msg("Your settings have been successfully saved.", "Settings Saved.", False)
+
+        Catch ex As Exception
+            nMsg.Msg(ex.Message & vbNewLine & vbNewLine & "Please report this error by clicking this link." & vbNewLine & "https://hackforums.net/private.php?action=send&uid=2307853&subject=ERROR&message=Error+code+%3A+%23" & "006", "Error!", True)
+        End Try
+    End Sub
+
+    Public Sub UpdateTimer()
+        CheckProfile.Interval = My.Settings.refreshRate
+    End Sub
+
     Private Sub SlickBlueTabControl1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles SlickBlueTabControl1.SelectedIndexChanged
+        If My.Settings.refreshRate = 30000 Then
+            comboRefresh.SelectedIndex = 0
+        ElseIf My.Settings.refreshRate = 60000 Then
+            comboRefresh.SelectedIndex = 1
+        ElseIf My.Settings.refreshRate = 120000 Then
+            comboRefresh.SelectedIndex = 2
+        ElseIf My.Settings.refreshRate = 180000 Then
+            comboRefresh.SelectedIndex = 3
+        ElseIf My.Settings.refreshRate = 300000 Then
+            comboRefresh.SelectedIndex = 4
+        End If
+
         If SlickBlueTabControl1.SelectedIndex = 1 Then
             If My.Settings.apiKey = "" Then
                 cbSaveAPI.Checked = False
@@ -207,5 +259,13 @@ Public Class Main
 
     Private Sub Label1_Click(sender As Object, e As EventArgs) Handles lblPmAlert.Click
         Process.Start("https://hackforums.net/private.php")
+    End Sub   
+
+    Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        UpdateTimer()
     End Sub
+
+    Private Sub RichTextBox1_LinkClicked(sender As Object, e As LinkClickedEventArgs) Handles RichTextBox1.LinkClicked
+        Process.Start(e.LinkText)
+    End Sub 
 End Class

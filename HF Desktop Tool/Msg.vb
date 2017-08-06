@@ -13,4 +13,8 @@
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Me.Close()
     End Sub
+
+    Private Sub txtMessage_LinkClicked(sender As Object, e As LinkClickedEventArgs) Handles txtMessage.LinkClicked
+        Process.Start(e.LinkText)
+    End Sub 
 End Class

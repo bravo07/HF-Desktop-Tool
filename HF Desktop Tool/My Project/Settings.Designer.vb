@@ -65,6 +65,18 @@ Namespace My
                 Me("apiKey") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("30000")>  _
+        Public Property refreshRate() As Integer
+            Get
+                Return CType(Me("refreshRate"),Integer)
+            End Get
+            Set
+                Me("refreshRate") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

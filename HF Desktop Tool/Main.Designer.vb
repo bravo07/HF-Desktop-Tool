@@ -42,9 +42,12 @@ Partial Class Main
         Me.imgAvatar = New System.Windows.Forms.PictureBox()
         Me.TabPage2 = New System.Windows.Forms.TabPage()
         Me.Panel2 = New System.Windows.Forms.Panel()
+        Me.Setperator1 = New HF_Desktop_Tool.Setperator()
+        Me.comboRefresh = New System.Windows.Forms.ComboBox()
+        Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.VelocityButton1 = New HF_Desktop_Tool.VelocityButton()
         Me.btnSaveSettings = New HF_Desktop_Tool.VelocityButton()
-        Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
         Me.cbSaveAPI = New System.Windows.Forms.CheckBox()
         Me.IconMenu.SuspendLayout()
         Me.SlickBlueTabControl1.SuspendLayout()
@@ -124,7 +127,7 @@ Partial Class Main
         'TabPage1
         '
         Me.TabPage1.BackColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.TabPage1.BackgroundImage = Global.HF_Desktop_Tool.My.Resources.Resources.mosaic_bl_1_
+        Me.TabPage1.BackgroundImage = Global.HF_Desktop_Tool.My.Resources.Resources.hf_bg
         Me.TabPage1.Controls.Add(Me.Panel1)
         Me.TabPage1.Location = New System.Drawing.Point(134, 4)
         Me.TabPage1.Name = "TabPage1"
@@ -201,7 +204,7 @@ Partial Class Main
         '
         'imgAvatar
         '
-        Me.imgAvatar.Image = Global.HF_Desktop_Tool.My.Resources.Resources.quick_hf_logo
+        Me.imgAvatar.Image = Global.HF_Desktop_Tool.My.Resources.Resources.hflogo
         Me.imgAvatar.Location = New System.Drawing.Point(10, 11)
         Me.imgAvatar.Name = "imgAvatar"
         Me.imgAvatar.Size = New System.Drawing.Size(136, 150)
@@ -212,7 +215,7 @@ Partial Class Main
         'TabPage2
         '
         Me.TabPage2.BackColor = System.Drawing.Color.FromArgb(CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer), CType(CType(51, Byte), Integer))
-        Me.TabPage2.BackgroundImage = Global.HF_Desktop_Tool.My.Resources.Resources.mosaic_bl_1_
+        Me.TabPage2.BackgroundImage = Global.HF_Desktop_Tool.My.Resources.Resources.hf_bg
         Me.TabPage2.Controls.Add(Me.Panel2)
         Me.TabPage2.Location = New System.Drawing.Point(134, 4)
         Me.TabPage2.Name = "TabPage2"
@@ -223,9 +226,12 @@ Partial Class Main
         '
         'Panel2
         '
+        Me.Panel2.Controls.Add(Me.Setperator1)
+        Me.Panel2.Controls.Add(Me.comboRefresh)
+        Me.Panel2.Controls.Add(Me.RichTextBox1)
+        Me.Panel2.Controls.Add(Me.Label1)
         Me.Panel2.Controls.Add(Me.VelocityButton1)
         Me.Panel2.Controls.Add(Me.btnSaveSettings)
-        Me.Panel2.Controls.Add(Me.RichTextBox1)
         Me.Panel2.Controls.Add(Me.cbSaveAPI)
         Me.Panel2.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel2.Location = New System.Drawing.Point(16, 16)
@@ -233,11 +239,51 @@ Partial Class Main
         Me.Panel2.Size = New System.Drawing.Size(332, 172)
         Me.Panel2.TabIndex = 1
         '
+        'Setperator1
+        '
+        Me.Setperator1.BackColor = System.Drawing.Color.FromArgb(CType(CType(111, Byte), Integer), CType(CType(111, Byte), Integer), CType(CType(111, Byte), Integer))
+        Me.Setperator1.Location = New System.Drawing.Point(13, 93)
+        Me.Setperator1.Name = "Setperator1"
+        Me.Setperator1.Size = New System.Drawing.Size(309, 1)
+        Me.Setperator1.TabIndex = 7
+        Me.Setperator1.Text = "Setperator1"
+        '
+        'comboRefresh
+        '
+        Me.comboRefresh.Font = New System.Drawing.Font("Consolas", 8.0!)
+        Me.comboRefresh.FormattingEnabled = True
+        Me.comboRefresh.Items.AddRange(New Object() {"30 Seconds", "1 Minute", "2 Minutes", "3 Minutes", "5 Minutes"})
+        Me.comboRefresh.Location = New System.Drawing.Point(124, 18)
+        Me.comboRefresh.Name = "comboRefresh"
+        Me.comboRefresh.Size = New System.Drawing.Size(200, 21)
+        Me.comboRefresh.TabIndex = 6
+        '
+        'RichTextBox1
+        '
+        Me.RichTextBox1.Font = New System.Drawing.Font("Consolas", 8.0!)
+        Me.RichTextBox1.Location = New System.Drawing.Point(11, 111)
+        Me.RichTextBox1.Name = "RichTextBox1"
+        Me.RichTextBox1.Size = New System.Drawing.Size(311, 44)
+        Me.RichTextBox1.TabIndex = 2
+        Me.RichTextBox1.Text = "HF Desktop Tool - v1.2.2" & Global.Microsoft.VisualBasic.ChrW(10) & "https://github.com/VmX5/HF-Desktop-Tool" & Global.Microsoft.VisualBasic.ChrW(10) & "https://hackforu" & _
+    "ms.net/showthread.php?tid=5683517"
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Consolas", 8.0!)
+        Me.Label1.ForeColor = System.Drawing.Color.White
+        Me.Label1.Location = New System.Drawing.Point(10, 22)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(115, 13)
+        Me.Label1.TabIndex = 5
+        Me.Label1.Text = "Refresh Interval :"
+        '
         'VelocityButton1
         '
         Me.VelocityButton1.Font = New System.Drawing.Font("Segoe UI Semilight", 9.0!)
         Me.VelocityButton1.ForeColor = System.Drawing.Color.White
-        Me.VelocityButton1.Location = New System.Drawing.Point(168, 138)
+        Me.VelocityButton1.Location = New System.Drawing.Point(171, 52)
         Me.VelocityButton1.Name = "VelocityButton1"
         Me.VelocityButton1.Size = New System.Drawing.Size(80, 24)
         Me.VelocityButton1.TabIndex = 4
@@ -248,29 +294,19 @@ Partial Class Main
         '
         Me.btnSaveSettings.Font = New System.Drawing.Font("Segoe UI Semilight", 9.0!)
         Me.btnSaveSettings.ForeColor = System.Drawing.Color.White
-        Me.btnSaveSettings.Location = New System.Drawing.Point(254, 138)
+        Me.btnSaveSettings.Location = New System.Drawing.Point(257, 52)
         Me.btnSaveSettings.Name = "btnSaveSettings"
         Me.btnSaveSettings.Size = New System.Drawing.Size(67, 24)
         Me.btnSaveSettings.TabIndex = 3
         Me.btnSaveSettings.Text = "Save"
         Me.btnSaveSettings.TextAlign = HF_Desktop_Tool.Helpers.TxtAlign.Center
         '
-        'RichTextBox1
-        '
-        Me.RichTextBox1.Font = New System.Drawing.Font("Consolas", 8.0!)
-        Me.RichTextBox1.Location = New System.Drawing.Point(10, 12)
-        Me.RichTextBox1.Name = "RichTextBox1"
-        Me.RichTextBox1.Size = New System.Drawing.Size(311, 86)
-        Me.RichTextBox1.TabIndex = 2
-        Me.RichTextBox1.Text = "HF Desktop Tool - v1.2.2" & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(10) & "https://hackforums.net/showthread.php?tid=5683517" & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(10) & "The" & _
-    "res only 1 setting lol :3"
-        '
         'cbSaveAPI
         '
         Me.cbSaveAPI.AutoSize = True
         Me.cbSaveAPI.Font = New System.Drawing.Font("Consolas", 8.0!)
         Me.cbSaveAPI.ForeColor = System.Drawing.Color.White
-        Me.cbSaveAPI.Location = New System.Drawing.Point(10, 144)
+        Me.cbSaveAPI.Location = New System.Drawing.Point(13, 56)
         Me.cbSaveAPI.Name = "cbSaveAPI"
         Me.cbSaveAPI.Size = New System.Drawing.Size(104, 17)
         Me.cbSaveAPI.TabIndex = 1
@@ -323,4 +359,7 @@ Partial Class Main
     Friend WithEvents VelocityButton1 As HF_Desktop_Tool.VelocityButton
     Friend WithEvents lblAge As System.Windows.Forms.Label
     Friend WithEvents lblPmAlert As System.Windows.Forms.Label
+    Friend WithEvents comboRefresh As System.Windows.Forms.ComboBox
+    Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents Setperator1 As HF_Desktop_Tool.Setperator
 End Class

@@ -26,10 +26,10 @@ Partial Class Msg
         Me.Panel2 = New System.Windows.Forms.Panel()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.lblTitle = New System.Windows.Forms.Label()
-        Me.txtMessage = New System.Windows.Forms.TextBox()
         Me.Panel4 = New System.Windows.Forms.Panel()
         Me.panelMain = New System.Windows.Forms.Panel()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.txtMessage = New System.Windows.Forms.RichTextBox()
         Me.Panel2.SuspendLayout()
         Me.Panel4.SuspendLayout()
         Me.panelMain.SuspendLayout()
@@ -66,18 +66,9 @@ Partial Class Msg
         Me.lblTitle.TabIndex = 0
         Me.lblTitle.Text = "Title"
         '
-        'txtMessage
-        '
-        Me.txtMessage.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.txtMessage.Location = New System.Drawing.Point(8, 8)
-        Me.txtMessage.Multiline = True
-        Me.txtMessage.Name = "txtMessage"
-        Me.txtMessage.Size = New System.Drawing.Size(285, 97)
-        Me.txtMessage.TabIndex = 0
-        '
         'Panel4
         '
-        Me.Panel4.BackgroundImage = Global.HF_Desktop_Tool.My.Resources.Resources.mosaic_bl_1_
+        Me.Panel4.BackgroundImage = Global.HF_Desktop_Tool.My.Resources.Resources.hf_bg
         Me.Panel4.Controls.Add(Me.panelMain)
         Me.Panel4.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel4.Location = New System.Drawing.Point(0, 48)
@@ -107,6 +98,16 @@ Partial Class Msg
         Me.Panel1.Size = New System.Drawing.Size(325, 48)
         Me.Panel1.TabIndex = 4
         '
+        'txtMessage
+        '
+        Me.txtMessage.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.txtMessage.Font = New System.Drawing.Font("Consolas", 8.0!)
+        Me.txtMessage.Location = New System.Drawing.Point(8, 8)
+        Me.txtMessage.Name = "txtMessage"
+        Me.txtMessage.Size = New System.Drawing.Size(285, 97)
+        Me.txtMessage.TabIndex = 0
+        Me.txtMessage.Text = ""
+        '
         'Msg
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -121,7 +122,6 @@ Partial Class Msg
         Me.Panel2.ResumeLayout(False)
         Me.Panel4.ResumeLayout(False)
         Me.panelMain.ResumeLayout(False)
-        Me.panelMain.PerformLayout()
         Me.Panel1.ResumeLayout(False)
         Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
@@ -130,9 +130,9 @@ Partial Class Msg
     Friend WithEvents Panel2 As System.Windows.Forms.Panel
     Friend WithEvents Button1 As System.Windows.Forms.Button
     Friend WithEvents lblTitle As System.Windows.Forms.Label
-    Friend WithEvents txtMessage As System.Windows.Forms.TextBox
     Friend WithEvents Panel4 As System.Windows.Forms.Panel
     Friend WithEvents panelMain As System.Windows.Forms.Panel
     Friend WithEvents Panel1 As System.Windows.Forms.Panel
+    Friend WithEvents txtMessage As System.Windows.Forms.RichTextBox
 
 End Class

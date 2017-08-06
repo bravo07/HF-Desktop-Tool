@@ -146,8 +146,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="hficon.ico" />
-    <None Include="Resources\quick hf logo.png" />
-    <None Include="Resources\mosaic_bl[1].png" />
+    <None Include="Resources\hficon.ico" />
+    <None Include="Resources\hf_pm.ico" />
+    <None Include="Resources\hflogo.png" />
+    <None Include="Resources\hf_bg.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -181,3 +181,17 @@ Public Class SlickBlueTabControl
         _mouseOverTabIndex = -1 : Invalidate()
     End Sub
 End Class
+
+Public Class Setperator
+    Inherits Control
+
+    Protected Overrides Sub OnPaint(e As PaintEventArgs)
+        MyBase.OnPaint(e)
+        e.Graphics.Clear(BackColor)
+    End Sub
+
+    Protected Overrides Sub OnResize(e As EventArgs)
+        MyBase.OnResize(e)
+        Me.Size = New Size(Width, 1)
+    End Sub
+End Class

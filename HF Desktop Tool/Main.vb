@@ -72,8 +72,6 @@ Public Class Main
 
             GetUserGroup(usergroupID)
 
-            Throw New Exception("123123123")
-
             CheckProfile.Start()
         Catch ex As Exception
             nMsg.Msg(ex.Message & vbNewLine & vbNewLine & "Please report this error by clicking this link." & vbNewLine & "https://hackforums.net/private.php?action=send&uid=2307853&subject=ERROR&message=Error+code+%3A+%23" & "002", "Error!", True)
